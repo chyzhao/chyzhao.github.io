@@ -4,12 +4,17 @@
 
     <sitemap>
         <loc>http://codespace.online/post-sitemap.xml</loc>
-        <lastmod>2018-11-03T07:56:19.470Z</lastmod>
+        <lastmod>2018-11-03T11:47:27.431Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>http://codespace.online/page-sitemap.xml</loc>
-        <lastmod>2018-11-03T07:15:18.897Z</lastmod>
+        <lastmod>2018-11-03T11:53:17.568Z</lastmod>
+    </sitemap>
+
+    <sitemap>
+        <loc>http://codespace.online/category-sitemap.xml</loc>
+        <lastmod>2018-11-03T11:47:27.431Z</lastmod>
     </sitemap>
 
 </sitemapindex>

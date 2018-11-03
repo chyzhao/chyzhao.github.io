@@ -8,29 +8,29 @@
     </url>
     
     <url>
-        <loc>http://codespace.online/404.html</loc>
-        <lastmod>2018-11-03T07:15:18.897Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>http://codespace.online/about/</loc>
-        <lastmod>2018-11-03T07:15:18.882Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
         <loc>http://codespace.online/tags/</loc>
-        <lastmod>2018-11-03T07:15:18.882Z</lastmod>
+        <lastmod>2018-11-03T11:53:17.568Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>http://codespace.online/archive/</loc>
-        <lastmod>2018-11-03T07:15:18.879Z</lastmod>
+        <lastmod>2018-11-03T11:52:50.164Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>http://codespace.online/about/</loc>
+        <lastmod>2018-11-03T11:52:07.231Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>http://codespace.online/404.html</loc>
+        <lastmod>2018-11-03T07:15:18.897Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
