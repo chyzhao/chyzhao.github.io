@@ -3,18 +3,18 @@
 
 
     <sitemap>
-        <loc>http://yoursite-url/post-sitemap.xml</loc>
-        <lastmod>2018-11-03T07:15:18.882Z</lastmod>
+        <loc>http://codespace.online/post-sitemap.xml</loc>
+        <lastmod>2018-11-03T07:56:19.470Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://yoursite-url/page-sitemap.xml</loc>
+        <loc>http://codespace.online/page-sitemap.xml</loc>
         <lastmod>2018-11-03T07:15:18.897Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://yoursite-url/tag-sitemap.xml</loc>
-        <lastmod>2018-11-03T07:15:18.882Z</lastmod>
+        <loc>http://codespace.online/tag-sitemap.xml</loc>
+        <lastmod>2018-11-03T07:53:02.188Z</lastmod>
     </sitemap>
 
 </sitemapindex>
