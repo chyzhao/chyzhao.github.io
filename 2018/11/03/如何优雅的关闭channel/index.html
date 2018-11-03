@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          开篇词 - Flipped | 怦然心动
+          如何优雅的关闭channel - Flipped | 怦然心动
         
     </title>
 
-    <link rel="canonical" href="http://codespace.online/2018/11/03/开篇词/">
+    <link rel="canonical" href="http://codespace.online/2018/11/03/如何优雅的关闭channel/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -90,8 +90,10 @@
                     <div class="post-heading">
                         <div class="tags">
                             
+                              <a class="tag" href="/tags/#Go语言" title="Go语言">Go语言</a>
+                            
                         </div>
-                        <h1>开篇词</h1>
+                        <h1>如何优雅的关闭channel</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by ChenYang-Zhao on
@@ -212,7 +214,42 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="这是我的新博客的第一篇文章">这是我的新博客的第一篇文章</span></h2>
+                <p>前两天读到一片英文文章，讲Golang中Channel的概念以及应该如何关闭Channel，虽然工作中用过不少channel，但是对Go channel的特性却不是特别了解，现在将这篇文章翻译下来，内容如下：<br>
+注：本篇文章根据如下两篇文章整理而来：</p>
+<ul>
+<li><a href="https://go101.org/article/channel.html" target="_blank" rel="noopener">Channels in Go</a></li>
+<li><a href="https://go101.org/article/channel-closing.html" target="_blank" rel="noopener">How to gracelly close channels</a></li>
+</ul>
+<p>Channel 是Go语言中非常特殊的一个feature，另一个特殊的feature是Goroutine，这两个特性使得Golang下的并发变成变得非常方便和有趣，大大降低了并发编程的难度。</p>
+<h3><span id="并发编程和同步">并发编程和同步</span></h3>
+<p>现代CPU都是多核的，其中一些还支持超线程技术，为了更好的利用CPU的性能，我们在编写程序时需要使用并发编程。那么什么是并发编程呢：</p>
+<blockquote>
+<p>Concurrent computing is a form of computing in which several computations are executed during overlapping time periods.<br>
+这里还要区分并发(Concurrent)和并行(Parallel)的概念：并发指一段时间内，两个或以上的程序同事执行；并行指的是同一时刻，两个或以上的程序同时执行。</p>
+</blockquote>
+<p>在Go语言中，我们使用Goroutine来实现并行计算。</p>
+<p>并发程序通常涉及内存共享，共享内存时可能会出现下面两种情况：</p>
+<ul>
+<li>在程序运行的同一时刻，一个线程在写内存，另一个线程恰好在读同一块内存中的数据，此时数据完整性是不受保护的；</li>
+<li>程序运行的同一时刻，一个线程在写内存，另一个线程也在写同一块内存，此时的数据完整性也是无法保证的；</li>
+</ul>
+<p>这些现象都叫作数据冲突(Data races)，并发编程的其中一项任务就是处理多个并发的线程之间的资源共享，使不出现数据冲突。实现这一目标的手段就是并发同步（Concurrent synchronization，或者叫数据同步（Data Synchronization）。Golang实现了一些并发控制手段，我们介绍其中最常用的一种，Channel；</p>
+<p>除了数据同步之外，并发编程的实现还涉及如下几个方面：</p>
+<ul>
+<li>决定需要用到的线程数；</li>
+<li>决定何时开启/关闭一个线程；</li>
+<li>给每个线程分配任务（workload）；</li>
+</ul>
+<p>对Go语言有一定了解的都应该听过并发编程的一条名言：不要通过共享内存来通信，而要通过通信来共享内存；</p>
+<blockquote>
+<p>don’t (let goroutines) communicate by sharing memory, (let them) share memory by communicating (through channels)<br>
+这里的通信就指channel</p>
+</blockquote>
+<p>如果使用共享内存在几个Goroutine之间通信，我们就不可避免的要使用一些传统的方式来避免数据冲突，比如互斥锁；而Golang提供了一种独特的并发控制技术：channel，实现了在Goroutine之间通过通信来共享内存；尽管Go语言提供了传统的如互斥锁的并发同步方式，但channel才是Golang的一等公民（First-level citizen）；</p>
+<p>channel是一种复合类型，像数组，切片和map一样，每一个被发送到channel的数据必须符合channel定义的元素类型。channel既可以是单向的也可以是双向的，其中单向channel又可以分为只收channel和只发channel；；总的来说，一共又如下三种类型的channel，其中<t>可以表示任何类型；</t></p>
+<ul>
+<li><code>chan T</code></li>
+</ul>
 
                 
 
@@ -220,10 +257,10 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/11/03/如何优雅的关闭channel/" data-toggle="tooltip" data-placement="top" title="如何优雅的关闭channel">&larr; Previous Post</a>
-                        </li>
                     
+                        <li class="next">
+                            <a href="/2018/11/03/开篇词/" data-toggle="tooltip" data-placement="top" title="开篇词">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -248,7 +285,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">这是我的新博客的第一篇文章</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">并发编程和同步</span></a></li></ol>
         
         </div>
       </aside>
@@ -268,6 +305,8 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#Go语言" title="Go语言">Go语言</a>
+                        
                     </div>
                 </section>
                 
