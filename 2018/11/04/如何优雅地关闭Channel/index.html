@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Flipped | 怦然心动
+          如何优雅地关闭Channel - Flipped | 怦然心动
         
     </title>
 
-    <link rel="canonical" href="http://codespace.online/404.html">
+    <link rel="canonical" href="http://codespace.online/2018/11/04/如何优雅地关闭Channel/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,8 +69,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/404-bg.jpg')
-            /*page*/
+            background-image: url('null')
+            /*post*/
         
     }
     
@@ -87,10 +87,20 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>Flipped</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">你来到了没有知识的荒原 :(</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Go语言" title="Go语言">Go语言</a>
+                            
+                              <a class="tag" href="/tags/#Golang" title="Golang">Golang</a>
+                            
+                        </div>
+                        <h1>如何优雅地关闭Channel</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by ChenYang-Zhao on
+                            2018-11-04
+                        </span>
                     </div>
                 
 
@@ -193,25 +203,146 @@
 
 
     <!-- Main Content -->
-    
-<!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/404-bg.jpg')">
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>404</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">你来到了没有知识的荒原 :(</span>
-                </div>
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>上一篇文章介绍了Golang中Channel的基本概念和一些高级特性，重点介绍了Channel的内部数据结构以及读/写/关闭三种操作的行为；下面是另一篇有关Channel的文章的翻译，这篇文章重点介绍了如何优雅地关闭channel，原文地址为：<br>
+<a href="https://go101.org/article/channel-closing.html" target="_blank" rel="noopener">How To Gracefully Close Channels</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/11/03/Golang中的Channel/" data-toggle="tooltip" data-placement="top" title="Golang 中的Channel">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="nav">none</ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Go语言" title="Go语言">Go语言</a>
+                        
+                          <a class="tag" href="/tags/#Golang" title="Golang">Golang</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
             </div>
         </div>
     </div>
-</header>
+</article>
 
+
+
+
+
+
+
+<!-- async load function -->
 <script>
-    document.body.classList.add('page-fullscreen');
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
 </script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
