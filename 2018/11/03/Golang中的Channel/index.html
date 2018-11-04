@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          如何优雅的关闭channel - Flipped | 怦然心动
+          Golang 中的Channel - Flipped | 怦然心动
         
     </title>
 
-    <link rel="canonical" href="http://codespace.online/2018/11/03/如何优雅的关闭channel/">
+    <link rel="canonical" href="http://codespace.online/2018/11/03/Golang中的Channel/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -93,7 +93,7 @@
                               <a class="tag" href="/tags/#Go语言" title="Go语言">Go语言</a>
                             
                         </div>
-                        <h1>如何优雅的关闭channel</h1>
+                        <h1>Golang 中的Channel</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by ChenYang-Zhao on
@@ -151,14 +151,14 @@
 
                         
                         <li>
-                            <a href="/archive/">文章列表</a>
+                            <a href="/tags/">标签</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">标签</a>
+                            <a href="/archive/">文章列表</a>
                         </li>
                         
                     
@@ -215,10 +215,9 @@
                 post-container">
 
                 <p>前两天读到一片英文文章，讲Golang中Channel的概念以及应该如何关闭Channel，虽然工作中用过不少channel，但是对Go channel的特性却不是特别了解，现在将这篇文章翻译下来，内容如下：<br>
-注：本篇文章根据如下两篇文章整理而来：</p>
+注：本篇文章根据下面的英文文章整理而来，有兴趣的可以读原文：</p>
 <ul>
 <li><a href="https://go101.org/article/channel.html" target="_blank" rel="noopener">Channels in Go</a></li>
-<li><a href="https://go101.org/article/channel-closing.html" target="_blank" rel="noopener">How to gracelly close channels</a></li>
 </ul>
 <p>Channel 是Go语言中非常特殊的一个feature，另一个特殊的feature是Goroutine，这两个特性使得Golang下的并发变成变得非常方便和有趣，大大降低了并发编程的难度。</p>
 <h3><span id="并发编程和同步">并发编程和同步</span></h3>
@@ -240,16 +239,111 @@
 <li>决定何时开启/关闭一个线程；</li>
 <li>给每个线程分配任务（workload）；</li>
 </ul>
+<h3><span id="channel简介">Channel简介</span></h3>
 <p>对Go语言有一定了解的都应该听过并发编程的一条名言：不要通过共享内存来通信，而要通过通信来共享内存；</p>
 <blockquote>
 <p>don’t (let goroutines) communicate by sharing memory, (let them) share memory by communicating (through channels)<br>
 这里的通信就指channel</p>
 </blockquote>
 <p>如果使用共享内存在几个Goroutine之间通信，我们就不可避免的要使用一些传统的方式来避免数据冲突，比如互斥锁；而Golang提供了一种独特的并发控制技术：channel，实现了在Goroutine之间通过通信来共享内存；尽管Go语言提供了传统的如互斥锁的并发同步方式，但channel才是Golang的一等公民（First-level citizen）；</p>
+<h3><span id="channel的类型">Channel的类型</span></h3>
 <p>channel是一种复合类型，像数组，切片和map一样，每一个被发送到channel的数据必须符合channel定义的元素类型。channel既可以是单向的也可以是双向的，其中单向channel又可以分为只收channel和只发channel；；总的来说，一共又如下三种类型的channel，其中<t>可以表示任何类型；</t></p>
 <ul>
-<li><code>chan T</code></li>
+<li><code>chan T</code> 表示双向channel，既可以发送数据也可以接收数据；</li>
+<li><code>chan &lt; -T</code> send-only channel，这样的channel只允许向其中发送数据，不允许从channel中读数据；</li>
+<li><code>&lt;- chan T</code> 表示receive-only channel，这样的channel只允许从其中读数据，不允许向其中写数据；</li>
 </ul>
+<p>其中，双向channel可以转换成单向channel，反之则不行，两种不同的单向channel之间也不允许转换；</p>
+<p>channel有容量的概念，容量为0的channel表示阻塞的channel，容量不为0的channel表示带缓存的channel；</p>
+<h3><span id="channel的操作">Channel的操作</span></h3>
+<p>下面是对channel的一些操作及产生的后果的总结：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>nil channel</th>
+<th>关闭的channel</th>
+<th>非关闭的非nilchannel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Close</td>
+<td>panic</td>
+<td>panic</td>
+<td>成功关闭</td>
+</tr>
+<tr>
+<td>写</td>
+<td>永久阻塞</td>
+<td>panic</td>
+<td>阻塞或写成功</td>
+</tr>
+<tr>
+<td>读</td>
+<td>永久阻塞</td>
+<td>用不阻塞</td>
+<td>阻塞或读成功</td>
+</tr>
+</tbody>
+</table>
+<p>为了更好地理解channel类型及其操作的行为，我们需要了解channel的内部数据结构。每个channel内部维护着三个队列：</p>
+<ul>
+<li>Rreceiving goroutine 队列：这是一个没有长度限制的链表结构，这个队列里的goroutine被称作channel 的blocked receiving goroutines；这个queue维护着所有因为要从channel中读取值而被blocked的goroutine；</li>
+<li>Sending goroutine 队列：这也是一个没有长度限制的链表结构，这些goroutine被称作channel的blocked sending goroutines；这个queue维护着所有因为要向channel发送数据而被blocked的goroutine；sending goroutine要发送的数据的地址也和这些goroutines一起存在队列里；</li>
+<li>数据缓存队列（value buffer queue）：它是一个循环队列，保存channel当前接收到但尚未发送出去的数据，队列的大小等于channel的容量；</li>
+</ul>
+<h4><span id="channel的读操作">channel的读操作</span></h4>
+<p>当一个goroutine尝试从一个非nil不关闭的channel中读一个值时，首先要拿到channel的锁，之后进行下面的过程，直到其中一个条件满足：</p>
+<ol>
+<li>如果channel的value buffer queue非空（此时channel的receiving goroutine queue一定是空的），channel的读操作会立刻得到value buffer queue中的一个值；此时如果channel的sending goroutine队列非空，其中一个sending goroutine将要写入channel的值写入value buffer queue后接着往下执行；</li>
+<li>如果channel的value buffer queue是空的，而sending goroutine queue是非空的，此时的channel一定是一个不带缓存的channel。此时从channel中取值的操作会立即得到channel的sending goroutine queue中其中一个giroutine要发送的值；发送数据的goroutine会立即解除blocked状态继续往下执行；</li>
+<li>如果channel的value buffer queue 和sending goroutine queue都是空的，即channel中没有缓存值，此时也没有giroutine向其中发送数据，此时从channel中读取值的goroutine将会被放进channel的receiving goroutine queue中，并且进入blocked状态；</li>
+</ol>
+<h4><span id="channel的写操作">channel的写操作</span></h4>
+<p>当一个goroutine尝试往channel中发送数据时，获得channel的锁后，发生下面的过程直到其中一个条件满足：</p>
+<ol>
+<li>如果channel的receiving goroutine queue非空，此时value buffer queue一定是空的（因为如果channel的value buffer queue中有数据未发送，则不会block receiving goroutine），此时sending goroutine会从receiving goroutine queue中取出一个goroutine，并把数据发送给它，然后发送goroutine继续执行；此时向channel发送数据的操作是non-blocked的；</li>
+<li>如果channel的receiving goroutine queue是空的，但value buffer queue未满，此时向channel发送数据的goroutine将数据push到value buffer queue中，然后继续执行，此时，发送操作也是non-blocked的；</li>
+<li>如果channel的receiving goroutine queue是空的，并且value buffer queue已满，向channel写数据的goroutine会被放到channel的sending goroutine queue中，然后进入blocked状态；直到有其它的goroutine读取channel中的数据，才有可能会被唤醒；此时对channel的写操作是阻塞的；</li>
+</ol>
+<h4><span id="channel的close操作">channel的close操作</span></h4>
+<p>当尝试关闭一个非nil且尚未关闭的channel时，会依次发生下面的过程：</p>
+<ol>
+<li>如果channel的receiving goroutine queue 非空，其中所有的goroutine会依次释放并接收到一个channel定义类型的零值；</li>
+<li>如果channel的sending goroutine queue非空，其中的每个goroutine会依次释放并出发panic，panic原因是向closed的channel发送数据；</li>
+</ol>
+<h4><span id="关闭后的channel的操作">关闭后的channel的操作</span></h4>
+<p>channel被关闭之后，对channel的读操作永远不会被block，channel的value buffer queue中的数据依然可以被获取，一旦value buffer中的所有数据被读取完毕，之后对channel的读操作均返回channel定义数据类型的零值；需要特别指出的是，channel的读操作返回两个值，其中第二个返回值（bool类型）指出了读到的数据（第一个返回值）是不是channel被关闭前发送到channel的；</p>
+<p>下面简单总结一下channel的相关操作及行为：</p>
+<ul>
+<li>closed状态的channel，receiving goroutine queue和sending goroutine queue一定是空的，但value buffer queue有可能不是空的；</li>
+<li>任何时间点，如果channel的value buffer queue不为空，则其receiving goroutine queue一定是空的；</li>
+<li>任何时间点，如果channel的value buffer queue未满，则其sending goroutine queue一定是空的；</li>
+<li>如果channel是带buffer的，在任何时间点，其receiving goroutine queue和sending goroutine queue必然有一个是空的；</li>
+<li>如果channel是不带buffer的，绝大部分情况下，其两个goroutine queue中至少有一个是空的，但当channel被用于<code>select</code>语句时，一个goroutine可能同时存在于channel的receiving和sending goroutine queue中。</li>
+</ul>
+<h3><span id="channel的高级特性">Channel的高级特性</span></h3>
+<h4><span id="channel中的值通过copy来传递">Channel中的值通过Copy来传递</span></h4>
+<p>无论是往channel中发送一个值还是从其中取出一个值，都是通过复制完成的，一个数据从通过channel一个goroutine发送到另一个goroutine的过程中，一共出现了两次复制操作，一次出现在发送时，一次出现在接收时；所以不建议通过channel传递特别大的数据类型；</p>
+<h4><span id="channel的内存回收">Channel的内存回收</span></h4>
+<p>Channel被所有它的receiving goroutine queue 和sending goroutine queue中的goroutine所引用（refer），所以，只要两个queue有一个是非空的，channel的内存就不会被回收；此外，如果一个goroutine在channel的两个goroutine queue中的一个中被block， 这个goroutine也不会被回收；事实上，goroutine只有退出后才可能被垃圾回收器回收；</p>
+<h4><span id="channel-的for-range">Channel 的<code>for range</code></span></h4>
+<p>当<code>for range</code>循环被用于channel时，循环会尝试不停地从channel中获取被发送给channel的值，直到channel的value buffer queue为空，然后被blocked；和<code>array</code>以及<code>slice</code>不同的是，channel上的for range 循环只返回一个值；</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> v := <span class="keyword">range</span> c&#123;</span><br><span class="line">    <span class="comment">//handle v</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果对一个为<code>nil</code>的channel执行for range，将会永远blocked；</p>
+<h4><span id="channel和select-case语句">Channel和select-case语句</span></h4>
+<p><code>select-case</code> 和 <code>switch-case</code>结构上很相似，但也有如下这些不同：</p>
+<ul>
+<li><code>select</code>关键词之后<code>{</code>之前不允许存在任何语句和表达式；</li>
+<li><code>select</code> 结构的<code>case</code>语句没有<code>fallthrough</code>语句；</li>
+<li><code>select</code> 结构的每个<code>case</code>语句后面要么是一个channel的发送语句，要么是channel的接收语句；</li>
+<li>如果<code>case</code>后面跟的一些channel操作是非阻塞的（non-blocking）的，<code>select</code>会随机的选择一个非阻塞的case语句执行，并且执行这个<code>case</code>语句相关的代码；</li>
+<li>如果<code>select</code>结构体中所有<code>case</code>语句的channel操作都是blocking的，并且设置了<code>default</code>语句，那么会执行default语句关联的代码；如果此时没有设置<code>default</code>语句，当前goroutine会被添加到所有case语句关联的channel的receiving gotourine queue和sending goroutine queue， 然后当前goroutine会进入blocked状态；特别地，一个没有任何<code>case</code>语句的<code>select</code>结构<code>select{}</code>会使当前goroutine永远进入阻塞状态；</li>
+</ul>
+<p>下面的代码有50%的几率panic</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span><br><span class="line">	<span class="built_in">close</span>(c)</span><br><span class="line">	<span class="keyword">select</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> c &lt;- <span class="keyword">struct</span>&#123;&#125;&#123;&#125;: <span class="comment">// panic if this case is selected.</span></span><br><span class="line">	<span class="keyword">case</span> &lt;-c:</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>OK, 以上就是Golang中Channel中相关的概念和一些高级特性，下一篇文章将会介绍如何的关闭Channel；</p>
 
                 
 
@@ -285,7 +379,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">并发编程和同步</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">并发编程和同步</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Channel简介</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Channel的类型</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Channel的操作</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">channel的读操作</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">channel的写操作</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">channel的close操作</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.4.</span> <span class="toc-nav-text">关闭后的channel的操作</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">Channel的高级特性</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text">Channel中的值通过Copy来传递</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text">Channel的内存回收</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text">Channel 的for range</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.4.</span> <span class="toc-nav-text">Channel和select-case语句</span></a></li></ol></li></ol>
         
         </div>
       </aside>
