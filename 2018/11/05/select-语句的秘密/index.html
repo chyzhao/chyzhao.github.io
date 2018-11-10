@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          文章列表 - Flipped | 怦然心动
+          select 语句的秘密 - Flipped | 怦然心动
         
     </title>
 
-    <link rel="canonical" href="http://codespace.online/archive/">
+    <link rel="canonical" href="http://codespace.online/2018/11/05/select-语句的秘密/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,8 +69,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/header_img/archive-bg.png')
-            /*page*/
+            background-image: url('null')
+            /*post*/
         
     }
     
@@ -87,10 +87,20 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>文章列表</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">Hey, this is archives</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Go语言" title="Go语言">Go语言</a>
+                            
+                              <a class="tag" href="/tags/#Golang" title="Golang">Golang</a>
+                            
+                        </div>
+                        <h1>select 语句的秘密</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by ChenYang-Zhao on
+                            2018-11-05
+                        </span>
                     </div>
                 
 
@@ -193,231 +203,177 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 归档列表 -->
-            
-            
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-             <!-- 归档列表 -->
-
-            
-            <div class="one-tag-list">
-                <span class="fa fa-calendar-times-o listing-seperator" id="2018">
-                    <span class="tag-text">2018</span>
-                </span>
-                <ul>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li>
-                    11-05
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2018/11/05/select-语句的秘密/" style="color: #0085a1">
-                        <span>
-                            select 语句的秘密
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li>
-                    11-04
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2018/11/04/如何优雅地关闭Channel/" style="color: #0085a1">
-                        <span>
-                            如何优雅地关闭Channel
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li>
-                    11-03
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2018/11/03/Golang中的Channel/" style="color: #0085a1">
-                        <span>
-                            Golang 中的Channel
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li>
-                    11-03
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2018/11/03/开篇词/" style="color: #0085a1">
-                        <span>
-                            开篇词
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                </ul>
-            </div>
-            
-
-
-        </div>
-    </div>
-</div>
-
-                <!-- 如果开启评论功能 -->
-                
-            </div>
-
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Featured Tags -->
-
-<section>
-    <!-- no hr -->
-    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-    <div class="tags">
-        
-            
-            <a href="/tags/#Go语言" title="Go语言" rel="3">Go语言</a>
-            
-        
-            
-            <a href="/tags/#Golang" title="Golang" rel="3">Golang</a>
-            
-        
-    </div>
-</section>
-
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
-
-        
-            <img id="avatar_pic" src="/img/avatar.jpeg">
-        
-
-        
-            <p>Hi, i&#39;m ChenYang-Zhao</p>
-        
-
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-            
-
-            
-
-            
-
-            
-                <li>
-                    <a target="_blank" href="https://github.com/ChenYang-Zhao">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
-    </div>
-</section>
-        <hr>
-    
-        
-  <h5>RECENT POSTS
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2018/11/05/select-语句的秘密/">select 语句的秘密</a>
-        </li>
-      
-        <li>
-          <a href="/2018/11/04/如何优雅地关闭Channel/">如何优雅地关闭Channel</a>
-        </li>
-      
-        <li>
-          <a href="/2018/11/03/Golang中的Channel/">Golang 中的Channel</a>
-        </li>
-      
-        <li>
-          <a href="/2018/11/03/开篇词/">开篇词</a>
-        </li>
-      
-    </ul>
-  </div>
-</h5>
-        <hr>
-    
-        <!-- Friends Blog -->
-
-<h5>FRIENDS</h5>
-<ul class="list-inline">
-
-    
-        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
-    
-        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
-    
-        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
-    
-        <li><a href="#" target="_blank">It Helps SEO</a></li>
-    
+                <p>之前在<a href="/2018/11/03/Golang中的Channel/" title="Golang 中的Channel">Golang 中的Channel</a> 这篇博客中介绍了Golang中<code>select</code>语句与Channel的配合使用，Golang中的<code>select</code>语句被设计用来专门处理与Channel相关的操作，尤其是有多个Channel的场景，非常强大；<br>
+这篇文章对Golang中<code>select</code>语句的原理和实现作一些介绍，方便大家更好地理解<code>select</code>语句的行为；<br>
+如果要更深刻的理解<code>select</code>的内部原理，有基础的可以直接撸源码，地址在这里<a href="https://github.com/golang/go/blob/master/src/runtime/select.go" target="_blank" rel="noopener">select的实现</a></p>
+<p>当Golang程序执行到<code>select</code>语句块时，究竟发生了什么呢？下面就是<code>select</code>语句块的执行流程：</p>
+<ol>
+<li>打乱<code>case</code>语句的顺序，<code>default</code>语句被放在队列的最后；</li>
+<li>对所有<code>case</code>语句中出现的channel进行排序，并且保证排序后channel的前N个是不重复的，其中N是所有 <code>case</code>语句关联的不重复的channel的个数；这一步处理的目的是防止在接下来的一步处理中出现死锁；这一步处理完之后，我们只考虑排序后的前N个channel就可以了；</li>
+<li>按前一步排序后的顺序对所有关联的channel加锁；</li>
+<li>按照第1步随机排序后的case语句的顺序进行轮询：
+<ol>
+<li>如果当前case的语句的行为是向一个已经被close的channel发送数据，那么将所有channel解锁并抛出<code>panic</code>，然后跳转到第10步；</li>
+<li>如果当前case语句的行为是非阻塞（non-blocked）的，那么执行这个channel的操作，对所有channel解锁，并执行case语句对应的代码；然后跳转到第10步；</li>
+<li>如果当前是default语句，那么解锁所有的channel，执行default语句的代码，然后跳转到第10步；<br>
+（走到这里，select语句块一定没有default语句，并且所有channel的操作都是阻塞的）</li>
+</ol>
+</li>
+<li>将当前goroutine放到（enquque）与case语句关联的所有channel的sending goroutine queue或者receiving goroutine queue中，一同入队的还有与channel操作相关的信息（要放=发送到channel中的值等）；当前goroutine可能会被放到同一个channel的队列中多次，原因是多个case语句可能关联的是一个channel；</li>
+<li>阻塞当前goroutine并且解锁所有channel；进入阻塞状态的goroutine只能等待其它goroutine的相关channel操作唤醒它；</li>
+<li>当前goroutine被其它goroutine的channel相关操作唤醒，唤醒可能是close一个channel的操作，向一个channel发送数据的操作或者是从一个channel中读取数据的操作；如果是对channel的发送/读取操作，当前goroutine将从该channel的receiving/sending goroutine queue中出队（dequeue）；</li>
+<li>按照第2步中channel的顺序对<code>select</code>语句关联的所有channel上锁；</li>
+<li>将当前goroutine从每一个channel的receiving goroutine queue或者sending goroutine queue中出队（dequeue）；
+<ol>
+<li>如果当前goroutine是被某个channel的close操作唤醒的，跳到步骤4；</li>
+<li>如果当前goroutine是被channel的读/写操作唤醒的，那么解锁所有的channel，并执行被唤醒的channel的读/写所对应的<code>case</code>语句的代码;</li>
+</ol>
+</li>
+<li>执行完毕；</li>
+</ol>
+<p>通过以上<code>select</code>语句的执行流程，可以得到以下事实：</p>
+<ul>
+<li>一个goroutine可能同使存在于多个channel的sending/receiving goroutine queue中，甚至可能同时存在于某个channel的sending goroutine queue和receiving goroutine queue中；</li>
+<li>当一个被<code>select-case</code>blocked的goroutine 被唤醒时，它会从所有case语句关联的channel的sending/receiving goroutine中被移除（dequeue）；</li>
 </ul>
 
-        <hr>
-    
-</div>
+                
 
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/11/04/如何优雅地关闭Channel/" data-toggle="tooltip" data-placement="top" title="如何优雅地关闭Channel">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
         
+          <ol class="nav">none</ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Go语言" title="Go语言">Go语言</a>
+                        
+                          <a class="tag" href="/tags/#Golang" title="Golang">Golang</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
     </div>
-</div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
