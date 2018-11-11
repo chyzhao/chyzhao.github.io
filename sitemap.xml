@@ -4,22 +4,17 @@
 
     <sitemap>
         <loc>http://codespace.online/post-sitemap.xml</loc>
-        <lastmod>2018-11-10T08:00:25.282Z</lastmod>
+        <lastmod>2018-11-11T06:04:18.749Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>http://codespace.online/page-sitemap.xml</loc>
-        <lastmod>2018-11-03T11:53:17.568Z</lastmod>
+        <lastmod>2018-11-11T06:04:18.776Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>http://codespace.online/category-sitemap.xml</loc>
-        <lastmod>2018-11-03T11:47:27.431Z</lastmod>
-    </sitemap>
-
-    <sitemap>
-        <loc>http://codespace.online/tag-sitemap.xml</loc>
-        <lastmod>2018-11-10T08:00:25.282Z</lastmod>
+        <lastmod>2018-11-11T06:04:18.749Z</lastmod>
     </sitemap>
 
 </sitemapindex>
